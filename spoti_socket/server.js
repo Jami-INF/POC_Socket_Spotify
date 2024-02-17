@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
   socket.on("createLobby", (userName) => {
     const lobbyId = generateLobbyId();
     socket.join(lobbyId);
-    // Crée un nouvel objet pour ce lobby s'il n'existe pas déjà
+    // Crée un nouveau lobby s'il n'existe pas déjà
     if (!lobbies[lobbyId]) {
       lobbies[lobbyId] = {
         players: [],
@@ -70,7 +70,6 @@ io.on("connection", (socket) => {
         username: userName,
         point: 0,
       });
-      // Rejoint le socket.io room correspondant au lobby
       socket.join(lobbyId);
       // Émet un événement pour indiquer que le joueur a rejoint le lobby avec succès
       io.to(socket.id).emit(
@@ -110,7 +109,7 @@ io.on("connection", (socket) => {
   //Gestion d'une partie
   socket.on("guessWord", (wordGuess, lobbyId, playerId) => {
     if (lobbies[lobbyId]) {
-      const correctWord = lobbies[lobbyId].word; // Récupère le premier mot de la liste
+      const correctWord = lobbies[lobbyId].word;
       if (wordGuess === correctWord) {
         const indexPlayer = getIndexPlayer(lobbyId, playerId);
         console.log(indexPlayer);
@@ -123,7 +122,7 @@ io.on("connection", (socket) => {
           const newWordIndex = Math.floor(Math.random() * wordsToGuess.length);
           const newWord = wordsToGuess[newWordIndex];
 
-          // Met à jour la liste des mots dans le lobby avec le nouveau mot
+          // Met à jour le mots dans le lobby avec le nouveau mot
           //lobbies[lobbyId].word.shift(); // Supprime le mot correct de la liste
           //lobbies[lobbyId].word.push(newWord);
           lobbies[lobbyId].word = newWord;

@@ -2,9 +2,7 @@
 import styles from "./page.module.css";
 import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
-import ChatPage from "@/components/page";
 import SpotifyBlindTest from "@/components/spotifyblind";
-import { sign } from "crypto";
 
 export default function Home() {
   const [FormRoomId, setFormRoomId] = useState("");
